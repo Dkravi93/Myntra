@@ -14,6 +14,7 @@ app.get('/', async (req, res, next) => {
 });
 
 app.use('/api', require('./routes/userRoute'));
+app.use('/api', require('./routes/productRoute'));
 
 app.use((req, res, next) => {
   next(createError.NotFound());

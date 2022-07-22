@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
             message : "Password are not the same"
         }
     }
+},
+{
+    timestamps : true,
+    versionKey : false,
 });
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();

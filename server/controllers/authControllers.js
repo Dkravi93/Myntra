@@ -1,7 +1,7 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-const catchAsync = require("./catchAsync");
+const catchAsync = require("../utils/catchAsync");
 
 
 const signToken = (id) =>{

@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: [true, "Please enter product name"],
+    text : true,
     trim: true,
     maxLength: [100, "Product name cannot exceed 100 characters"],
   },
   price: {
     type: Number,
     required: [true, "Please enter product price"],
-    maxLength: [5, "Product name cannot exceed 100 characters"],
+    maxLength: [5, "Price cannot exceed 5 characters"],
     default: 0.0,
   },
   description: {
@@ -21,47 +22,11 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  images: [
-    {
-      // public_id is id of the image from cloudinary, and url is image url from cloudinary.
-
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-
   category: {
     type: String,
-    required: [true, "Please select categeory for this product"],
-    enum: {
-      values: [
-        "Electronics",
-        "Cameras",
-        "Laptops",
-        "Accessories",
-        "Headphones",
-        "Food",
-        "Books",
-        "Clothes/Shoes",
-        "Beauty/Health",
-        "Sports",
-        "Outdoor",
-        "Home",
-      ],
-      message: "Please select correct category for product",
-    },
+    required: [true, "Please select categeory for this product"],    
   },
-  seller: {
-    type: String,
-    required: [true, "Please enter product seller"],
-  },
-  stock: {
+  stocks : {
     type: Number,
     required: [true, "Please enter product stock"],
     maxLength: [true, "Product name cannot exceed 5 characters"],
@@ -93,16 +58,36 @@ const productSchema = new mongoose.Schema({
     },
   ],
 
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: true,
-  },
-
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
+},
+{
+    timestamps : true,
+    versionKey : false,
 });
 
+productSchema.index( { name : 'text' });
+
 module.exports = mongoose.model("Product", productSchema);
+
+
+
+
+/*
+enum: {
+      values: [
+        "Electronics",
+        "Cameras",
+        "Laptops",
+        "Accessories",
+        "Headphones",
+        "Food",
+        "Books",
+        "Clothes/Shoes",
+        "Beauty/Health",
+        "Sports",
+        "Outdoor",
+        "Home",
+      ],
+      message: "Please select correct category for product",
+    },
+*/
+
