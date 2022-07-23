@@ -70,4 +70,13 @@ const updateProducts = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-module.exports = { postProducts, getProducts, updateProducts };
+
+const deleteProducts = catchAsyncErrors(async (req, res, next) => {
+  const products = await Product.findByIdAndDelete(req.params.id);
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
+
+module.exports = { postProducts, getProducts, updateProducts, deleteProducts};
